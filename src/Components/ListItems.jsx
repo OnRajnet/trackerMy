@@ -38,21 +38,22 @@ export const mainListItems = (
         <ListItemText primary="Zápasy" />
       </ListItem>
     </Link>
-
+      <Link to="statistics">
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Statistika" />
     </ListItem>
-
+      </Link>
+<Link to="player">
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Hráči" />
     </ListItem>
-
+</Link>
     <Link to="/">
       <ListItem button>
         <ListItemIcon>

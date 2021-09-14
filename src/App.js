@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import Match from './Pages/match/Match';
 import FooterCompoment from './Components/FooterCompoment';
-import Sidebar from './Components/Sidebar';
 import Home from './Pages/home/Home';
 import Setting from './Pages/setting/Setting';
 import Statistic from './Pages/statistic/Statistic';
@@ -17,11 +16,6 @@ import Player from './Pages/player/Player';
 
 
 function App() {
-  const [token, setToken] = useState();
-
-if(!token){
-  return <LogIn setToken={setToken}/>
-}
 
 
   return (
