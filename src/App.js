@@ -13,6 +13,7 @@ import Home from './Pages/home/Home';
 import Setting from './Pages/setting/Setting';
 import Statistic from './Pages/statistic/Statistic';
 import Player from './Pages/player/Player';
+import Register from "./Pages/register/Register"
 
 
 function App() {
@@ -46,6 +47,11 @@ function App() {
         <Switch>
           <Route path="/player">
             <Player />
+          </Route>
+        </Switch>
+        <Switch>
+          <Route path="/register">
+            <Register />
           </Route>
         </Switch>
       </div>

@@ -1,0 +1,8 @@
+        const reqOps = {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({login: "Login"}, {password:"Password"})
+        };
+        fetch( constants + "/api/user", reqOps)
+            .then(response => response.json())
+            .then(data => this.setState(data.get("login"), data.get("password")))

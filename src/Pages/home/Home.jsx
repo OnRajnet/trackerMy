@@ -23,6 +23,7 @@ export default function Home() {
     
     return (
         <div className={classes.home}>
+            Home
         </div>
     )
 }

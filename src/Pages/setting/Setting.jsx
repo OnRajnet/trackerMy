@@ -49,9 +49,6 @@ const useStyles = makeStyles((theme) => ({
     userShowBottom: {
         marginTop: 20,
     },
-    userShowBottom: {
-        marginTop: 20,
-    },
     userShowtitle: {
         fontSize: 14,
         fontWeight: 600,
