@@ -1,6 +1,12 @@
-import * as React from 'react';
+import  React, {useContext} from 'react';
 import { DataGrid } from '@material-ui/data-grid';
 import {PlayerPerformanceData} from "../../dummyData";
+import Button from "@mui/material/Button";
+import {getPlayerStat} from "../../Util/api";
+import {GlobalStoreContext} from "../../Context/GlobalStoreContext";
+
+
+const [store, setStore] = useContext(GlobalStoreContext)
 
 const columns = [
     { field: 'footballmatchId', headerName: 'matchID', width: 200 },
@@ -49,9 +55,22 @@ const columns = [
 ];
 
 
+
+
+
+
 export default function DataTable() {
+
+
     return (
         <div style={{ height: 400, width: '100%' }}>
+            <div>
+                <Button
+                    onClick={getPlayerStat}
+                >Načti data</Button>
+            </div>
+            <p>{store.login}</p>
+
             <DataGrid
                 rows={PlayerPerformanceData}
                 columns={columns}

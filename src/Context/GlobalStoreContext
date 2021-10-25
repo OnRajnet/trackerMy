@@ -1,0 +1,16 @@
+import React, {useState, createContext} from "react";
+
+
+export const GlobalStoreContext = createContext('');
+
+export const StoreProvider = props => {
+    const [store, setStore] = useState()
+
+    return (
+        <GlobalStoreContext.Provider value={[store, setStore]} >
+            {props.children}
+        </GlobalStoreContext.Provider>
+    )
+}
+
+

@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
 import { indigo } from '@material-ui/core/colors';
-import Sidebar from "./Sidebar"
+import Sidebar from "./Sidebar";
+import { useAuth } from '../Context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const classes = useStyles();
 
+  const { currentAuth } = useAuth();
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
@@ -40,6 +43,8 @@ export default function Navbar() {
           <Typography variant="h6" className={classes.title}>
             Fotball Tracker App
           </Typography>
+
+          { currentAuth && <span>Uživatel: {currentAuth}</span> }
         </Toolbar>
       </AppBar>
     </div>

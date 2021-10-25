@@ -1,11 +1,11 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from "./Components/Navbar"
-import LogIn from './Pages/logIn/LogIn';
+import LogIn from './Components/SingIn'
 import {
   BrowserRouter as Router,
   Switch,
-  Route 
+  Route
 } from "react-router-dom";
 import Match from './Pages/match/Match';
 import FooterCompoment from './Components/FooterCompoment';
@@ -13,50 +13,39 @@ import Home from './Pages/home/Home';
 import Setting from './Pages/setting/Setting';
 import Statistic from './Pages/statistic/Statistic';
 import Player from './Pages/player/Player';
-import Register from "./Pages/register/Register"
-
+import Register from "./Components/SingUp"
+import ProtectedRoute from './Components/ProtectedRoute';
+import RouterPath from './Router/index';
+import { SnackbarContextProvider } from "./Context/SnackbarContext";
+import { AuthContextProvider } from './Context/AuthContext';
+import {StoreProvider} from "./Context/GlobalStoreContext";
 
 function App() {
-
-
   return (
-    <Router>
-      <Navbar/>
-      <Route exact path="/" >
-            < LogIn />
-      </Route>
-      <div className="container">
-        <Route path="/home" >
-        <Home/>
-        </Route>
-        <Switch>
-          <Route path="/match">
-            <Match />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/setting">
-            <Setting />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/statistic">
-            <Statistic />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/player">
-            <Player />
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/register">
-            <Register />
-          </Route>
-        </Switch>
-      </div>
-      <FooterCompoment/>
-    </Router>
+    <AuthContextProvider>
+      <Router>
+        <Navbar/>
+          <div className="container">
+            <Switch>
+              <Route exact path={RouterPath.index} >
+                < LogIn />
+              </Route>
+
+              <Route path={RouterPath.register}>
+                <Register />
+              </Route>
+              <StoreProvider>
+              <ProtectedRoute exact path={RouterPath.home} component={Home} />
+              <ProtectedRoute exact path={RouterPath.match} component={Match} />
+              <ProtectedRoute exact path={RouterPath.setting} component={Setting} />
+              <ProtectedRoute exact path={RouterPath.statistic} component={Statistic} />
+              <ProtectedRoute exact path={RouterPath.player} component={Player} />
+              </StoreProvider>
+            </Switch>
+          </div>
+        <FooterCompoment/>
+      </Router>
+    </AuthContextProvider>
   );
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { indigo } from '@material-ui/core/colors';
 import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from "@material-ui/icons"
 
 const useStyles = makeStyles((theme) => ({
@@ -167,7 +166,7 @@ export default function Setting() {
                             <span className={classes.userShowInfoTitle}>asdfas@asdf.com</span>
                         </div>
                         <div className={classes.userShowInfo}>
-                            <LocationSearching classNameé={classes.userShowIcon} />
+                            <LocationSearching className={classes.userShowIcon} />
                             <span className={classes.userShowInfoTitle}>Tetov 50</span>
                         </div>
 

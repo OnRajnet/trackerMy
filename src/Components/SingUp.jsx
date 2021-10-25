@@ -1,4 +1,4 @@
-import React, {  useContext } from 'react';
+import React, {useState, useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,28 +11,22 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import {saveUserToDb} from "../Util/api";
-
+import SnackbarProvider from "../Context/SnackbarContext";
 
 
 const theme = createTheme();
 
 
 export default function SignUp() {
+    const { openSnackbar } = useContext(SnackbarProvider);
+    const [ login, setLogin ] = useState('');
+    const [ password, setPassword ] = useState('');
 
 
-   const handleSubmit = (event) => {
-       event.preventDefault();
-       const data = new FormData(event.currentTarget);
-       try {
-           saveUserToDb(data.get('login'), data.get('password'))
-         //  console.log({
-         //      email: data.get('login'),
-         //      password: data.get('password'),
-         //  })
-       } catch (e) {
-
-       }
-
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+       saveUserToDb(login, password)
+        openSnackbar("error", "Zadaný uživatel již existuje");
    }
 
     return (
@@ -63,6 +57,8 @@ export default function SignUp() {
                                     label="Název účtu"
                                     name="login"
                                     autoComplete="login"
+                                    value={login}
+                                    onChange={(e) => setLogin(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -74,6 +70,8 @@ export default function SignUp() {
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                             </Grid>
                         </Grid>
@@ -88,7 +86,7 @@ export default function SignUp() {
                         <Grid container justifyContent="flex-end">
                             <Grid item>
                                 <Link to="/" variant="body2">
-                                    Already have an account? Sign in
+                                    Máš již účet? Přihlaš se!
                                 </Link>
                             </Grid>
                         </Grid>
