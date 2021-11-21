@@ -1,83 +1,71 @@
-import  React, {useContext} from 'react';
-import { DataGrid } from '@material-ui/data-grid';
-import {PlayerPerformanceData} from "../../dummyData";
+import React, {useMemo, useState, useEffect} from 'react';
 import Button from "@mui/material/Button";
 import {getPlayerStat} from "../../Util/api";
-import {GlobalStoreContext} from "../../Context/GlobalStoreContext";
-
-
-const [store, setStore] = useContext(GlobalStoreContext)
-
-const columns = [
-    { field: 'footballmatchId', headerName: 'matchID', width: 200 },
-    {
-        field: 'player',
-        headerName: 'player',
-        width: 200,
-        editable: false,
-    },
-    {
-        field: 'steps',
-        headerName: 'steps',
-        width: 150,
-        type: 'number',
-        editable: false,
-    },
-    {
-        field: 'distance',
-        headerName: 'distance',
-        type: 'number',
-        width: 200,
-        editable: false,
-    },
-    {
-        field: 'maxSpeed',
-        headerName: 'maxSpeed',
-        type: 'number',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-    },
-    {
-        field: 'minSpeed',
-        headerName: 'minSpeed',
-        type: 'number',
-        width: 200,
-        editable: false,
-    },
-    {
-        field: 'avgSpeed',
-        headerName: 'avgSpeed',
-        type: 'number',
-        width: 200,
-        editable: false,
-    },
-];
-
+import { useAuth } from '../../Context/AuthContext';
+import Table from '../../Helper/Table';
 
 
 
 
 
 export default function DataTable() {
+    const { currentAuth } = useAuth();
+    const [dataTable, setDataTable] = useState({login:'', role:'', performance:[]});
 
+    const handleLoadPlayerStat = async () => {
+        try {
+            const { data } = await getPlayerStat(currentAuth);
+            setDataTable(data)
+            console.log(dataTable)
+
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+
+
+
+    const columns = useMemo(
+        () =>[
+            {
+
+                //first
+                Header: 'Údaje',
+                columns: [
+                    {
+                        Header:'Login',
+                        accesor: 'login'
+                    },
+                    {
+                        Header:'Role',
+                        accesor: 'role'
+                    }
+                ]
+            },
+            //Second
+            {
+                Header: 'Výkon',
+                columns: [
+                    {
+                        Header: 'steps',
+                        accesor: 'performance.steps'
+                    }
+                ]
+            }
+        ],
+        []
+    );
 
     return (
         <div style={{ height: 400, width: '100%' }}>
             <div>
                 <Button
-                    onClick={getPlayerStat}
+                    onClick={handleLoadPlayerStat}
                 >Načti data</Button>
             </div>
-            <p>{store.login}</p>
 
-            <DataGrid
-                rows={PlayerPerformanceData}
-                columns={columns}
-                pageSize={5}
-                checkboxSelection
-                disableSelectionOnClick
-            />
+            {/*<Table columns={columns} data={dataTable} />*/}
         </div>
     );
 }

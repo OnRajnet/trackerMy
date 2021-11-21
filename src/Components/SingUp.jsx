@@ -18,7 +18,6 @@ const theme = createTheme();
 
 
 export default function SignUp() {
-    const { openSnackbar } = useContext(SnackbarProvider);
     const [ login, setLogin ] = useState('');
     const [ password, setPassword ] = useState('');
 
@@ -26,7 +25,6 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
        saveUserToDb(login, password)
-        openSnackbar("error", "Zadaný uživatel již existuje");
    }
 
     return (
@@ -47,7 +45,7 @@ export default function SignUp() {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField

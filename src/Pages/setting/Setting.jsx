@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { CalendarToday, LocationSearching, MailOutline, PermIdentity, PhoneAndroid, Publish } from "@material-ui/icons"
+import {PermIdentity, Accessibility, Cached} from "@material-ui/icons"
+import {changePassword, logOutApp, saveUserToDb} from "../../Util/api";
 
 const useStyles = makeStyles((theme) => ({
     setting: {
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "darkblue",
     color: "whitesmoke",
     fontWeight: 600,
+        marginTop:10,
     },
 
 }));
@@ -131,80 +133,78 @@ const useStyles = makeStyles((theme) => ({
 export default function Setting() {
     const classes = useStyles();
 
+    const [ oldPassword, setOldPassword ] = useState('');
+    const [ newPassword1, setNewPassword1 ] = useState('');
+    const [ newPassword2, setNewPassword2 ] = useState('');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if(newPassword1 === newPassword2){
+            changePassword(oldPassword, newPassword1);
+            console.log("Succes")
+            logOutApp()
+        }else {
+            console.log("Fail")
+        }
+
+
+    }
+
     return (
         <div className={classes.setting}>
             <div className={classes.titleContainer}>
-                <h1 className={classes.title}>Úprava uživatele</h1>
+                <h1 className={classes.title}>Informace o uživateli</h1>
             </div>
             <div className={classes.userContainer}>
                 <div className={classes.userShow}>
-                    <div className={classes.userShowTop}>
-                        <img src="https://img.joomcdn.net/dace9a3da47d7d748e13af43f96344a4449c7688_original.jpeg"
-                            alt="" className={classes.showUserImg} />
-                        <div className={classes.userShowTopTitle}>
-                            <span className={classes.userShowUsername}>Anna Becker</span>
-                            <span className={classes.userShowUseTitle}>Software Engineer</span>
-                        </div>
-                    </div>
                     <div className={classes.userShowBottom}>
-                        <span className={classes.userShowtitle}>Account Details</span>
+                        <span className={classes.userShowtitle}>Detaily účtu</span>
                         <div className={classes.userShowInfo}>
-                            <PermIdentity classNameé={classes.userShowIcon} />
+                            <PermIdentity className={classes.userShowIcon} />
                             <span className={classes.userShowInfoTitle}>AnnaBeck99</span>
                         </div>
                         <div className={classes.userShowInfo}>
-                            <CalendarToday classNameé={classes.userShowIcon} />
+                            <Cached className={classes.userShowIcon} />
                             <span className={classes.userShowInfoTitle}>10.12.1999</span>
                         </div>
-                        <span className={classes.userShowtitle}>Contact Details</span>
                         <div className={classes.userShowInfo}>
-                            <PhoneAndroid classNameé={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>+420 7787Z8787</span>
+                            <Accessibility className={classes.userShowIcon} />
+                            <span className={classes.userShowInfoTitle}>10.12.1999</span>
                         </div>
-                        <div className={classes.userShowInfo}>
-                            <MailOutline classNameé={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>asdfas@asdf.com</span>
-                        </div>
-                        <div className={classes.userShowInfo}>
-                            <LocationSearching className={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>Tetov 50</span>
-                        </div>
-
                     </div>
                 </div>
-                <div className={classes.userUpdate}>
-                    <span className={classes.userUpdateTitle}>Edit</span>
+
+
+
+                <div className={classes.userUpdate} onSubmit={handleSubmit}>
+                    <span className={classes.userUpdateTitle}>Změna hesla</span>
                     <form className={classes.userUpdateFrom}>
                         <div>
                             <div className={classes.userUpdateItem}>
-                                <label>Username</label>
-                                <input type="text" placeholder="AnnaBeck99" className={classes.userUpdateInput} />
+                                <label>Staré heslo</label>
+                                <input type="password"
+                                       placeholder="Staré heslo"
+                                       className={classes.userUpdateInput}
+                                       value={oldPassword}
+                                       onChange={(e => setOldPassword(e.target.value))} />
                             </div>
                             <div className={classes.userUpdateItem}>
-                                <label>Full Name</label>
-                                <input type="text" placeholder="Anna Becker" className={classes.userUpdateInput}  />
+                                <label>Nové heslo</label>
+                                <input type="password"
+                                       placeholder="Nové heslo"
+                                       className={classes.userUpdateInput}
+                                       value={newPassword1}
+                                       onChange={(e => setNewPassword1(e.target.value))}/>
                             </div>
                             <div className={classes.userUpdateItem}>
-                                <label>Email</label>
-                                <input type="text" placeholder="asdfas@asdf.com" className={classes.userUpdateInput}  />
+                                <label>Nové heslo</label>
+                                <input type="password"
+                                       placeholder="Nové heslo"
+                                       className={classes.userUpdateInput}
+                                       value={newPassword2}
+                                       onChange={(e => setNewPassword2(e.target.value))} />
                             </div>
-                            <div className={classes.userUpdateItem}>
-                                <label>Phone</label>
-                                <input type="text" placeholder="+420 7787Z8787" className={classes.userUpdateInput}  />
-                            </div>
-                            <div className={classes.userUpdateItem}>
-                                <label>Adress</label>
-                                <input type="text" placeholder="Tetov 50" className={classes.userUpdateInput}  />
-                            </div>
-                        </div>
-                        <div className={classes.userUpdateRight}>
-                            <div className={classes.userUpdateUpload}>
-                                <img src="https://img.joomcdn.net/dace9a3da47d7d748e13af43f96344a4449c7688_original.jpeg"
-                                    alt="" className={classes.userUpdateImg} />
-                                <label htmlFor="file"> <Publish className={classes.userUpdateIcon} /> </label>
-                                <input type="file" id="file" style={{ display: "none" }} />
-                            </div>
-                            <button className={classes.userUpdateButton}>Update</button>
+                            <button className={classes.userUpdateButton}>Změnit!</button>
                         </div>
                     </form>
                 </div>

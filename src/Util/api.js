@@ -1,14 +1,10 @@
 import { Base64 } from 'js-base64';
 import axios from './client';
-import snackbarContext from '../Context/SnackbarContext';
 import auth from './auth';
-import {GlobalStoreContext} from "../Context/GlobalStoreContext";
-import React, {useState, useContext} from "react";
 
 
 const appLogin = window.localStorage.getItem("Login")
 const appToken = window.localStorage.getItem("Token")
-const [store, setStore] = useContext(GlobalStoreContext)
 
 async function saveUserToDb(login, password){
     try {
@@ -19,7 +15,7 @@ async function saveUserToDb(login, password){
                 }
             })
 
-    }catch (error) {
+    } catch (error) {
             console.log(error)
 
     }
@@ -50,6 +46,7 @@ async function loginPLayer (login, password){
 
 async function getGoogleUserConsentLink() {
     const config = {headers: {authorization: 'Bearer ' + appToken}}
+    const appLogin = window.localStorage.getItem("Login")
 
     const { data } = await axios.get("/api/player/" + appLogin + "/consent",config)
 
@@ -64,23 +61,20 @@ function logOutApp(){
 
 async function getAllPlayer(){
     const appToken = window.localStorage.getItem("Token")
-    const login = "user"
     const config = {headers: {authorization: 'Bearer ' + appToken}}
 
-    const {data} = await axios.get('api/player'+ {login},{config})
+    const {data} = await axios.get('api/player',{config})
 
     return data
 }
 
-async function getPlayerStat(){
-
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
-
-    const {data} = await axios.get('api/player/' + appLogin, config)
-
-    console.log(data)
-    setStore(data)
-    return data
+async function getPlayerStat(appLogin){
+    try {
+        const response = await axios.get('api/player/' + appLogin)
+        return response;
+    } catch(e) {
+        console.error(e)
+    }
 }
 
 async function createFotballMatch(player, startTime, endTime){
@@ -96,6 +90,20 @@ async function createFotballMatch(player, startTime, endTime){
 
 }
 
+async function changePassword(oldPassword, newPassword){
+    const appLogin = window.localStorage.getItem("Login")
+    const appToken = window.localStorage.getItem("Token")
+    const config = {headers: {authorization: 'Bearer ' + appToken}}
+
+    try {
+        const data = await axios.put(`/api/user/` + appLogin,{newPassword: newPassword, oldPassword: oldPassword},config)
+    }
+    catch (e){
+        console.log(e)
+        return e
+    }
+}
+
 
 export {
     logOutApp,
@@ -105,6 +113,7 @@ export {
     getAllPlayer,
     getPlayerStat,
     createFotballMatch,
+    changePassword,
 }
 
 
