@@ -2,10 +2,6 @@ import { Base64 } from 'js-base64';
 import axios from './client';
 import auth from './auth';
 
-
-const appLogin = window.localStorage.getItem("Login")
-const appToken = window.localStorage.getItem("Token")
-
 async function saveUserToDb(login, password){
     try {
         const { data }  = await axios.post('/api/user', {login: login, password: password},{})
@@ -45,6 +41,8 @@ async function loginPLayer (login, password){
 }
 
 async function getGoogleUserConsentLink() {
+    
+    const appToken = window.localStorage.getItem("Token")
     const config = {headers: {authorization: 'Bearer ' + appToken}}
     const appLogin = window.localStorage.getItem("Login")
 
@@ -78,10 +76,11 @@ async function getPlayerStat(appLogin){
 }
 
 async function createFotballMatch(player, startTime, endTime){
+    const appToken = window.localStorage.getItem("Token")
     const config = {headers: {authorization: 'Bearer ' + appToken}}
 
     try {
-        await axios.post('api/match' + appLogin,{player: player, startTime: startTime, endTime: endTime},config)
+        await axios.post('api/match',{player: player, startTime: startTime, endTime: endTime},config)
 
     }
     catch (e){
@@ -104,6 +103,28 @@ async function changePassword(oldPassword, newPassword){
     }
 }
 
+async function getFotbalMatchId(){
+    const appToken = window.localStorage.getItem("Token")
+    const config = {headers: {authorization: 'Bearer ' + appToken}}
+    try{
+        const {data} = await axios.get('/api/match/', config)
+        return data
+    }catch (e){
+        console.log(e);
+    }
+}
+
+async function getFotbalMatchFromId(id){
+    const appToken = window.localStorage.getItem("Token")
+    const config = {headers: {authorization: 'Bearer ' + appToken}}
+    try {
+        const {data} = await axios.get('/api/match/' + id, config)
+        return data
+    }catch (e){
+        console.log(e)
+    }
+}
+
 
 export {
     logOutApp,
@@ -114,6 +135,8 @@ export {
     getPlayerStat,
     createFotballMatch,
     changePassword,
+    getFotbalMatchId,
+    getFotbalMatchFromId
 }
 
 

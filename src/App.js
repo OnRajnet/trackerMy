@@ -17,9 +17,10 @@ import Register from "./Components/SingUp"
 import ProtectedRoute from './Components/ProtectedRoute';
 import RouterPath from './Router/index';
 import {AuthContextProvider} from './Context/AuthContext';
-import {StoreProvider} from "./Context/GlobalStoreContext";
-import createMatch from "./Pages/createMatch/createMatch";
-import matchDetail from "./Pages/matchDetail/matchDetail";
+import createMatch from "./Pages/createMatch/CreateMatch";
+import matchDetail from "./Pages/matchDetail/MatchDetail";
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 function App() {
     return (
@@ -41,7 +42,8 @@ function App() {
                         <ProtectedRoute exact path={RouterPath.statistic} component={Statistic}/>
                         <ProtectedRoute exact path={RouterPath.player} component={Player}/>
                         <ProtectedRoute exact path={RouterPath.createMatch} component={createMatch}/>
-                        <ProtectedRoute excat path={RouterPath.matchDetail} component={matchDetail}/>ą
+                        <ProtectedRoute excat path={RouterPath.matchDetail} component={matchDetail}/>
+
                     </Switch>
                 </div>
                 <FooterCompoment/>

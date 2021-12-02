@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import {PermIdentity, Accessibility, Cached} from "@material-ui/icons"
 import {changePassword, logOutApp, saveUserToDb} from "../../Util/api";
+import {getLogin} from "../../Context/AuthContext";
+
+const Login = window.localStorage.getItem("Login")
 
 const useStyles = makeStyles((theme) => ({
     setting: {
@@ -161,15 +164,7 @@ export default function Setting() {
                         <span className={classes.userShowtitle}>Detaily účtu</span>
                         <div className={classes.userShowInfo}>
                             <PermIdentity className={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>AnnaBeck99</span>
-                        </div>
-                        <div className={classes.userShowInfo}>
-                            <Cached className={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>10.12.1999</span>
-                        </div>
-                        <div className={classes.userShowInfo}>
-                            <Accessibility className={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>10.12.1999</span>
+                            <span className={classes.userShowInfoTitle}>{Login}</span>
                         </div>
                     </div>
                 </div>
@@ -194,7 +189,7 @@ export default function Setting() {
                                        placeholder="Nové heslo"
                                        className={classes.userUpdateInput}
                                        value={newPassword1}
-                                       onChange={(e => setNewPassword1(e.target.value))}/>
+                                       onChange={(event => setNewPassword1(event.target.value))}/>
                             </div>
                             <div className={classes.userUpdateItem}>
                                 <label>Nové heslo</label>
