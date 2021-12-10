@@ -1,0 +1,23 @@
+react_devtools_backend.js:2540 MUI: You have provided an out-of-range value `undefined` for the select component.
+Consider providing a value that matches one of the available options or ''.
+The available values are "". 
+
+{
+    "footballMatchId": 1,
+    "trainer": "trener",
+
+    "startTime": 1636894800000,
+    "endTime": 1636897800000,
+
+    "totalSteps": 3949,
+    "avgSteps": 3949.0,
+    "totalDistance": 2941.4875043569855,
+    "avgDistance": 2941.4875043569855,
+    "avgSpeed": 1.114611839953037,
+    "players": []
+}
+
+
+ncaught Error: Material-UI: The data grid component requires all rows to have a unique id property.
+A row was provided without id in the rows prop:
+{"footballMatchId":1,"trainer":"trener","startTime":1636894800000,"endTime":1636897800000,"totalSteps":3949,"avgSteps":3949,"totalDistance":2941.4875043569855,"avgDistance":2941.4875043569855,"avgSpeed":1.114611839953037,"players":[]}
