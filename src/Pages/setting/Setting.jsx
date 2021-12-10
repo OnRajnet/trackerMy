@@ -2,9 +2,7 @@ import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import {PermIdentity, Accessibility, Cached} from "@material-ui/icons"
 import {changePassword, logOutApp, saveUserToDb} from "../../Util/api";
-import {getLogin} from "../../Context/AuthContext";
-
-const Login = window.localStorage.getItem("Login")
+import {getLogin, useAuth} from "../../Context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
     setting: {
@@ -139,6 +137,7 @@ export default function Setting() {
     const [ oldPassword, setOldPassword ] = useState('');
     const [ newPassword1, setNewPassword1 ] = useState('');
     const [ newPassword2, setNewPassword2 ] = useState('');
+    const { currentAuth } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -164,7 +163,7 @@ export default function Setting() {
                         <span className={classes.userShowtitle}>Detaily účtu</span>
                         <div className={classes.userShowInfo}>
                             <PermIdentity className={classes.userShowIcon} />
-                            <span className={classes.userShowInfoTitle}>{Login}</span>
+                            <span className={classes.userShowInfoTitle}>{currentAuth}</span>
                         </div>
                     </div>
                 </div>

@@ -80,7 +80,7 @@ async function createFotballMatch(player, startTime, endTime){
     const config = {headers: {authorization: 'Bearer ' + appToken}}
 
     try {
-        await axios.post('api/match',{player: player, startTime: startTime, endTime: endTime},config)
+        await axios.post('api/match',{playersLogins: player, startTime: startTime, endTime: endTime},config)
 
     }
     catch (e){
@@ -114,7 +114,7 @@ async function getFotbalMatchId(){
     }
 }
 
-async function getFotbalMatchFromId(id){
+async function getFotbalMatchById(id){
     const appToken = window.localStorage.getItem("Token")
     const config = {headers: {authorization: 'Bearer ' + appToken}}
     try {
@@ -136,7 +136,7 @@ export {
     createFotballMatch,
     changePassword,
     getFotbalMatchId,
-    getFotbalMatchFromId
+    getFotbalMatchById
 }
 
 

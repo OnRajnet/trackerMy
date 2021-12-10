@@ -10,6 +10,7 @@ import cs from 'date-fns/locale/cs';
 
 import TextField from '@mui/material/TextField';
 import {makeStyles} from "@material-ui/core/styles";
+import {createFotballMatch, loginPLayer} from "../Util/api";
 
 export default function MatchForm ({ playerList }) {
 
@@ -41,6 +42,14 @@ export default function MatchForm ({ playerList }) {
             margin:50,
         },
     }));
+
+    const handleSubmit = async (e) =>{
+        console.log(formPlayers)
+        console.log(startDateTime.getTime())
+        console.log(endDateTime.getTime())
+
+        await createFotballMatch(formPlayers,startDateTime.getTime(), endDateTime.getTime())
+    }
     const classes = useStyles();
 
     return (
@@ -113,7 +122,7 @@ export default function MatchForm ({ playerList }) {
                 <br/>
             </div>
 
-            <Button variant="contained" size="large">
+            <Button variant="contained" size="large" type="submit" onClick={handleSubmit}>
                 Vytvořit zápas
             </Button>
     </div>

@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: "none",
     },
     button:{
-        width: "100%",
+        margin: "auto",
+        width: "60%",
         padding:30,
         backgroundColor: indigo["A200"],
         color: "black",
@@ -53,11 +54,18 @@ export default function Home() {
 
     return (
         <div className={classes.home}>
-            
-            { !isTrainer && <>
+            <div>
                 <h1>
-                    <p>Přihlaš se pomocí svého Google účtu</p>
+                    Vítejte ve webové aplikaci na sledování sportovných výkonů
                 </h1>
+                <p>
+                    Aplikace slouží primárně k sledování výkonů jednotlivých hráčů v čase konání zápasu. Data, kterou jsou zde zobrazená uživatelé poskytli zcela dobrovnolně pro účely výzkumu.
+                </p>
+            </div>
+            { !isTrainer && <>
+                <h2>
+                    <p>Přihlaš se pomocí svého Google účtu</p>
+                </h2>
                 <a href={consentLink} className={classes.href}>
                   <div className={classes.button}>
                       Přihlášení

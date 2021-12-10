@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {getFotbalMatchFromId, getFotbalMatchId} from "../../Util/api";
+import {getFotbalMatchById, getFotbalMatchId} from "../../Util/api";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FotballMatchDataGrid from "../../Components/FotballMatchDataGrid";
@@ -8,6 +8,7 @@ export default function MatchDetail(){
 
     const [ idList, setIdList ] = useState([]);
     const [ pickedId, setPickedId ] = useState([{id:'' }]);
+    const [currentMatchData, setCurrentMatchData] = useState("");
 
     const fetchIdList = async () => {
         const { id }  = await getFotbalMatchId();
@@ -20,6 +21,12 @@ export default function MatchDetail(){
         values[index].id = value;
 
         setPickedId(values);
+    }
+
+    const handleShowMatch = async () =>{
+       const response =  await getFotbalMatchById(1);
+        setCurrentMatchData(response);
+
     }
 
     useEffect(() => {
@@ -58,9 +65,10 @@ export default function MatchDetail(){
 
             <div>
 
-                <button>Ukaž zápas {idList}</button>
+                <button onClick={handleShowMatch}>Ukaž zápas</button>
 
-                <FotballMatchDataGrid/>
+                <FotballMatchDataGrid currentMatchData={currentMatchData} />
+
             </div>
 
         </div>

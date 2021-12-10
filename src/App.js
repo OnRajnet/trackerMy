@@ -19,8 +19,6 @@ import RouterPath from './Router/index';
 import {AuthContextProvider} from './Context/AuthContext';
 import createMatch from "./Pages/createMatch/CreateMatch";
 import matchDetail from "./Pages/matchDetail/MatchDetail";
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 function App() {
     return (

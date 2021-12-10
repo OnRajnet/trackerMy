@@ -20,11 +20,17 @@ const theme = createTheme();
 export default function SignUp() {
     const [ login, setLogin ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ password1, setPassword1 ] = useState('');
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-       saveUserToDb(login, password)
+        if (password === password1){
+            saveUserToDb(login, password)
+        }
+        else {
+            console.log("Zadaná hesla nejsou stejná")
+        }
    }
 
     return (
@@ -43,7 +49,7 @@ export default function SignUp() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Registrace do webové aplikace
                     </Typography>
                     <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -64,12 +70,25 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Heslo"
+                                    label="Nové heslo"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Nové heslo znovu"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => setPassword1(e.target.value)}
                                 />
                             </Grid>
                         </Grid>
@@ -79,7 +98,7 @@ export default function SignUp() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign Up
+                            Registrovat
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>

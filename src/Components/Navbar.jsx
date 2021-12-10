@@ -37,11 +37,8 @@ export default function Navbar() {
           <Sidebar />
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
           </IconButton>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <SportsSoccerIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Fotball Tracker App
+            Fotball Tracker
           </Typography>
 
           { currentAuth && <span>Uživatel: {currentAuth}</span> }

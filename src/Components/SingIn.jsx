@@ -62,7 +62,7 @@ export default function SignIn() {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Přihlášení
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -70,7 +70,7 @@ export default function SignIn() {
                                 required
                                 fullWidth
                                 id="login"
-                                label="Login"
+                                label="Uživatelské jméno"
                                 name="login"
                                 autoComplete="login"
                                 autoFocus
@@ -82,7 +82,7 @@ export default function SignIn() {
                                 required
                                 fullWidth
                                 name="password"
-                                label="Password"
+                                label="Heslo"
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
@@ -96,7 +96,7 @@ export default function SignIn() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                Přihlásit se
                             </Button>
                             
                             <Grid container>
