@@ -9,6 +9,7 @@ export default function MatchDetail(){
     const [ idList, setIdList ] = useState([]);
     const [ pickedId, setPickedId ] = useState([{id:'' }]);
     const [currentMatchData, setCurrentMatchData] = useState("");
+    const idToString = pickedId.map(({id}) => `${id}`)
 
     const fetchIdList = async () => {
         const { id }  = await getFotbalMatchId();
@@ -24,14 +25,13 @@ export default function MatchDetail(){
     }
 
     const handleShowMatch = async () =>{
-       const response =  await getFotbalMatchById(1);
+        const response =  await getFotbalMatchById(idToString);
         setCurrentMatchData(response);
 
     }
 
     useEffect(() => {
         fetchIdList()
-        console.log(pickedId)
     }, [pickedId])
 
     return(
@@ -65,9 +65,9 @@ export default function MatchDetail(){
 
             <div>
 
-                <button onClick={handleShowMatch}>Ukaž zápas</button>
+                <button onClick={handleShowMatch}>Ukaž zápas {idToString}</button>
 
-                <FotballMatchDataGrid currentMatchData={currentMatchData} />
+                <FotballMatchDataGrid currentMatchData={currentMatchData}/>
 
             </div>
 

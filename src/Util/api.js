@@ -4,7 +4,7 @@ import auth from './auth';
 
 async function saveUserToDb(login, password){
     try {
-        const { data }  = await axios.post('/api/user', {login: login, password: password},{})
+        const { data }  = await axios.post('/api/user', {login: login, plainPass: password},{})
             .catch(function (error){
                 if (error.response.status == 401){
                     console.log("Login je již obsazený")

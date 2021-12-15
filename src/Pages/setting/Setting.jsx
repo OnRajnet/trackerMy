@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import {PermIdentity, Accessibility, Cached} from "@material-ui/icons"
@@ -154,6 +155,9 @@ export default function Setting() {
 
     return (
         <div className={classes.setting}>
+            <p>Karta NASTAVENÍ,  <br/>
+                zde je možnost vidět detailu účtu a nebo změnit heslo.
+            </p>
             <div className={classes.titleContainer}>
                 <h1 className={classes.title}>Informace o uživateli</h1>
             </div>

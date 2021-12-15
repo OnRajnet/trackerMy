@@ -22,6 +22,10 @@ export default function Match() {
 
     return (
             <div className={classes.home}>
+                <p>
+                    Karta ZÁPAS, <br/>
+                    zde je možnost vybrat mezi vytvořením nového zápasu a nebo zobrazení již vytvořeného zápasu.
+                </p>
                     <Link to="/createMatch" variant="body2" className={classes.button}>
                     <Button variant="contained">
                         Vytvoř zápas

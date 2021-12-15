@@ -59,10 +59,27 @@ export default function Home() {
                     Vítejte ve webové aplikaci na sledování sportovných výkonů
                 </h1>
                 <p>
-                    Aplikace slouží primárně k sledování výkonů jednotlivých hráčů v čase konání zápasu. Data, kterou jsou zde zobrazená uživatelé poskytli zcela dobrovnolně pro účely výzkumu.
+                    Aplikace slouží primárně k sledování výkonů jednotlivých hráčů v čase konání zápasu.
+                    Data, kterou jsou zde zobrazená uživatelé poskytli zcela dobrovnolně pro účely výzkumu.
+                </p>
+                <p>
+                    Aplika je rozdělena do 2 typů přístupů. Jsou zde hráči a trenéři.
+                    Hráči, kteří mají méně možností než trénér mohou na vidět pouze svoje výkony na kartě HRÁČ a
+                    spravovat svůj účet na kartě NASTAVENÍ.
+                    Trenér má více možností, jak vidět a zkoumat statistiky a výsledky utkání.
+                    Na karté ZÁPAS je možné vložit záznam o utkání a nebo zobrazit si nějaký zápas, který již byl sehrát a
+                    vidět detailní staticky zápasu. Dále v kartě HRÁČ je možnost rozbrazit si výkon jednotlivého hráče.
                 </p>
             </div>
             { !isTrainer && <>
+                <p>
+                    Prosím přilaš se pomocí svého Google účtu a odouhlas s možností poskytování dat
+                    pro zaznamenání a zpracování tvých výsledků.
+
+                </p>
+                <p>
+                    Pro přihlášení využil tlačítko níže.
+                </p>
                 <h2>
                     <p>Přihlaš se pomocí svého Google účtu</p>
                 </h2>

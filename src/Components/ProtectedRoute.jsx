@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { Redirect, Route } from "react-router-dom";
 import auth from '../Util/auth';
 import { useAuth } from "../Context/AuthContext";
+import {Redirect, Route} from "react-router-dom";
 
 export default function ProtectedRoute ({ component: Component, ...restOfProps }) {
     const isAuthenticated = auth.getAccessToken();

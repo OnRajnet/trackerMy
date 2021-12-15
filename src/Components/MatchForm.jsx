@@ -34,6 +34,7 @@ export default function MatchForm ({ playerList }) {
     }
     useEffect(() => {
         console.log(...formPlayers);
+
     }, [formPlayers])
 
     const useStyles = makeStyles((theme) => ({
