@@ -21,6 +21,8 @@ import createMatch from "./Pages/createMatch/CreateMatch";
 import matchDetail from "./Pages/matchDetail/MatchDetail";
 
 function App() {
+
+
     return (
         <AuthContextProvider>
             <Router>

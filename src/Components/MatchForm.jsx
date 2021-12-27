@@ -45,11 +45,11 @@ export default function MatchForm ({ playerList }) {
     }));
 
     const handleSubmit = async (e) =>{
-        console.log(formPlayers)
+        console.log(formPlayers.map(player => player.name), 'test');
         console.log(startDateTime.getTime())
         console.log(endDateTime.getTime())
 
-        await createFotballMatch(formPlayers,startDateTime.getTime(), endDateTime.getTime())
+        await createFotballMatch((formPlayers || []).map(player => player.name), startDateTime.getTime(), endDateTime.getTime())
     }
     const classes = useStyles();
 

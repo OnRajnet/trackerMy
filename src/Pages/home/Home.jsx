@@ -43,6 +43,7 @@ export default function Home() {
     const [consentLink, setConsentLink] = useState("");
 
     useEffect(() => {
+
         if (currentAuth && currentAuth !== 'trener') {
           const fetchConsentLink = async () => {
             const link = await getGoogleUserConsentLink();

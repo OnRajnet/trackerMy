@@ -15,9 +15,19 @@ function AuthContextProvider({ children }) {
         logOutApp();
     }
 
+    const setLogin = () => {
+        const login = window.localStorage.getItem("Login");
+
+        if (!login) {
+            return;
+        }
+    
+        setCurrentAuth(login) 
+    }
+
     return (
         <AuthContext.Provider
-            value={{ currentAuth, setCurrentAuth, logOutUser }}
+            value={{ currentAuth, setCurrentAuth, logOutUser, setLogin }}
         >
             {children}
         </AuthContext.Provider>
@@ -25,7 +35,7 @@ function AuthContextProvider({ children }) {
 }
 
 function getLogin(){
-    const login = window.localStorage.getItem("Login")
+    const login = window.localStorage.getItem("Login");
     return login;
 }
 

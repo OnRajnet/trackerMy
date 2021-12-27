@@ -55,8 +55,6 @@ function logOutApp(){
     window.localStorage.clear()
 }
 
-
-
 async function getAllPlayer(){
     const appToken = window.localStorage.getItem("Token")
     const config = {headers: {authorization: 'Bearer ' + appToken}}
@@ -66,10 +64,12 @@ async function getAllPlayer(){
     return data
 }
 
-async function getPlayerStat(appLogin){
+async function getPlayerDataPerformance(login){
+    const url = `api/player/${login}`;
+
     try {
-        const response = await axios.get('api/player/' + appLogin)
-        return response;
+        const { data } = await axios.get(url)
+        return data;
     } catch(e) {
         console.error(e)
     }
@@ -95,7 +95,7 @@ async function changePassword(oldPassword, newPassword){
     const config = {headers: {authorization: 'Bearer ' + appToken}}
 
     try {
-        const data = await axios.put(`/api/user/` + appLogin,{newPassword: newPassword, oldPassword: oldPassword},config)
+        await axios.put(`/api/user/` + appLogin,{newPassword: newPassword, oldPassword: oldPassword},config)
     }
     catch (e){
         console.log(e)
@@ -132,7 +132,7 @@ export {
     saveUserToDb,
     getGoogleUserConsentLink,
     getAllPlayer,
-    getPlayerStat,
+    getPlayerDataPerformance,
     createFotballMatch,
     changePassword,
     getFotbalMatchId,
