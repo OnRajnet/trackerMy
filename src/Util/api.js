@@ -4,15 +4,9 @@ import auth from './auth';
 
 async function saveUserToDb(login, password){
     try {
-        const { data }  = await axios.post('/api/user', {login: login, plainPass: password},{})
-            .catch(function (error){
-                if (error.response.status == 401){
-                    console.log("Login je již obsazený")
-                }
-            })
-
+        await axios.post('/api/user', {login: login, plainPass: password},{})
     } catch (error) {
-            console.log(error)
+        return error.log(error);
 
     }
 
@@ -25,28 +19,18 @@ async function loginPLayer (login, password){
 
     try {
         const { data } = await axios.post('/api/auth/token', {}, config)
-            .catch(function (error){
-                if (error.response.status == 401){
-                    console.log("uživatel není nebo špatné heslo")
-                }
-            })
-
-
         if (data) {
             auth.setAccessTokenAndLogin(data, login);
         }
     } catch (error) {
-        console.warn(error)
+        return error.log(error)
     }
 }
 
 async function getGoogleUserConsentLink() {
-    
-    const appToken = window.localStorage.getItem("Token")
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
     const appLogin = window.localStorage.getItem("Login")
-
-    const { data } = await axios.get("/api/player/" + appLogin + "/consent",config)
+    const url = `api/player/${appLogin}/consent`
+    const { data } = await axios.get(url)
 
     return data
 }
@@ -56,31 +40,28 @@ function logOutApp(){
 }
 
 async function getAllPlayer(){
-    const appToken = window.localStorage.getItem("Token")
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
-
-    const {data} = await axios.get('api/player',{config})
+    const url = `api/player`
+    const { data } = await axios.get(url)
 
     return data
 }
-
 async function getPlayerDataPerformance(login){
-    const url = `api/player/${login}`;
 
     try {
+        const url = `api/player/${login}`;
         const { data } = await axios.get(url)
-        return data;
-    } catch(e) {
-        console.error(e)
+        return data
+    }catch (error){
+        console.log(error)
+        return error
     }
+
 }
 
 async function createFotballMatch(player, startTime, endTime){
-    const appToken = window.localStorage.getItem("Token")
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
-
+    const url = `api/match`
     try {
-        await axios.post('api/match',{playersLogins: player, startTime: startTime, endTime: endTime},config)
+        await axios.post(url,{playersLogins: player, startTime: startTime, endTime: endTime})
 
     }
     catch (e){
@@ -91,11 +72,9 @@ async function createFotballMatch(player, startTime, endTime){
 
 async function changePassword(oldPassword, newPassword){
     const appLogin = window.localStorage.getItem("Login")
-    const appToken = window.localStorage.getItem("Token")
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
-
+    const url = `api/user/${appLogin}`
     try {
-        await axios.put(`/api/user/` + appLogin,{newPassword: newPassword, oldPassword: oldPassword},config)
+        await axios.put(url,{newPassword: newPassword, oldPassword: oldPassword})
     }
     catch (e){
         console.log(e)
@@ -104,10 +83,9 @@ async function changePassword(oldPassword, newPassword){
 }
 
 async function getFotbalMatchId(){
-    const appToken = window.localStorage.getItem("Token")
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
+    const url = `api/match/`
     try{
-        const {data} = await axios.get('/api/match/', config)
+        const {data} = await axios.get(url)
         return data
     }catch (e){
         console.log(e);
@@ -115,16 +93,14 @@ async function getFotbalMatchId(){
 }
 
 async function getFotbalMatchById(id){
-    const appToken = window.localStorage.getItem("Token")
-    const config = {headers: {authorization: 'Bearer ' + appToken}}
+    const url = `/api/match/${id}`
     try {
-        const {data} = await axios.get('/api/match/' + id, config)
+        const {data} = await axios.get(url)
         return data
     }catch (e){
         console.log(e)
     }
 }
-
 
 export {
     logOutApp,

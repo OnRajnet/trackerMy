@@ -64,12 +64,12 @@ export default function Home() {
                     Data, kterou jsou zde zobrazená uživatelé poskytli zcela dobrovnolně pro účely výzkumu.
                 </p>
                 <p>
-                    Aplika je rozdělena do 2 typů přístupů. Jsou zde hráči a trenéři.
-                    Hráči, kteří mají méně možností než trénér mohou na vidět pouze svoje výkony na kartě HRÁČ a
-                    spravovat svůj účet na kartě NASTAVENÍ.
+                    Aplikace je rozdělena na 2 typy přístupů. Jsou zde hráči a trenéři.
+                    Hráči, kteří mají méně možností než trénér. Mohou na vidět pouze svoje výkony na kartě <strong>STATISTIKY</strong> a
+                    spravovat svůj účet na kartě <strong>NASTAVENÍ</strong>.
                     Trenér má více možností, jak vidět a zkoumat statistiky a výsledky utkání.
-                    Na karté ZÁPAS je možné vložit záznam o utkání a nebo zobrazit si nějaký zápas, který již byl sehrát a
-                    vidět detailní staticky zápasu. Dále v kartě HRÁČ je možnost rozbrazit si výkon jednotlivého hráče.
+                    Na karté <strong>ZÁPAS</strong> je možné vložit záznam o utkání a nebo zobrazit si nějaký zápas, který již byl sehrát a
+                    vidět detailní staticky zápasu. Dále v kartě <strong>STATISTIKY</strong> je možnost rozbrazit si výkon jednotlivého hráče.
                 </p>
             </div>
             { !isTrainer && <>

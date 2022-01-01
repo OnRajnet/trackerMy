@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {getAllPlayer} from "../../Util/api";
-import Button from "@mui/material/Button";
 import MatchForm from "../../Components/MatchForm";
 
 
@@ -13,10 +12,6 @@ export default function CreateMatch (){
         setPlayerList(id);
     }
 
-    const handleClick = () => {
-        fetchPLayerList();
-    }
-
     useEffect(() => {
         fetchPLayerList()
     }, [])
@@ -24,7 +19,9 @@ export default function CreateMatch (){
 
     return(
         <div>
-            <div>
+            <div style={{
+                textAlign: "center",
+            }}>
 
                 <h1>Formulář pro vytvoření nového zápasu</h1>
                 { /* playerList &&  

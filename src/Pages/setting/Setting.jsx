@@ -1,9 +1,12 @@
 
 import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import {PermIdentity, Accessibility, Cached} from "@material-ui/icons"
-import {changePassword, logOutApp, saveUserToDb} from "../../Util/api";
-import {getLogin, useAuth} from "../../Context/AuthContext";
+import {PermIdentity} from "@material-ui/icons"
+import {changePassword, logOutApp} from "../../Util/api";
+import {useAuth} from "../../Context/AuthContext";
+import {useSnackbar} from "../../Context/SnackbarContext";
+import  { Redirect } from 'react-router-dom'
+
 
 const useStyles = makeStyles((theme) => ({
     setting: {
@@ -135,6 +138,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Setting() {
     const classes = useStyles();
 
+    const { openSnackbar, hideSnackbar } = useSnackbar();
     const [ oldPassword, setOldPassword ] = useState('');
     const [ newPassword1, setNewPassword1 ] = useState('');
     const [ newPassword2, setNewPassword2 ] = useState('');
@@ -142,12 +146,13 @@ export default function Setting() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        hideSnackbar();
         if(newPassword1 === newPassword2){
             changePassword(oldPassword, newPassword1);
-            console.log("Succes")
+            openSnackbar('success','Úspěšně změněno')
             logOutApp()
         }else {
-            console.log("Fail")
+            openSnackbar('error','Zadaná hesla nejsou stejná')
         }
 
 
@@ -155,7 +160,7 @@ export default function Setting() {
 
     return (
         <div className={classes.setting}>
-            <p>Karta NASTAVENÍ,  <br/>
+            <p>Karta <strong>NASTAVENÍ</strong>,  <br/>
                 zde je možnost vidět detailu účtu a nebo změnit heslo.
             </p>
             <div className={classes.titleContainer}>

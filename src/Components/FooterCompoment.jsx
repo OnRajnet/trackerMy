@@ -22,6 +22,10 @@ function Copyright() {
       container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+          position:"fixed",
+          bottom: 0,
+          textAlign:"center",
+          width:"100%",
       },
   }));
 

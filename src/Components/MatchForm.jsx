@@ -10,7 +10,7 @@ import cs from 'date-fns/locale/cs';
 
 import TextField from '@mui/material/TextField';
 import {makeStyles} from "@material-ui/core/styles";
-import {createFotballMatch, loginPLayer} from "../Util/api";
+import {createFotballMatch} from "../Util/api";
 
 export default function MatchForm ({ playerList }) {
 
@@ -39,7 +39,7 @@ export default function MatchForm ({ playerList }) {
 
     const useStyles = makeStyles((theme) => ({
         home: {
-            padding: 20,
+            padding: 10,
             margin:50,
         },
     }));
@@ -55,7 +55,6 @@ export default function MatchForm ({ playerList }) {
 
     return (
         <div className={classes.home}>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <Button
                 variant="contained"
                 size="medium"
@@ -63,6 +62,7 @@ export default function MatchForm ({ playerList }) {
             >
                 Přidat hřáče
             </Button>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <div>
                 { 
                     formPlayers && formPlayers.map((formPlayer, index) => {
@@ -88,11 +88,12 @@ export default function MatchForm ({ playerList }) {
                 }
             </div>
         </Box>
-            <div>
+            <div style={{
+                padding:10,
+            }}>
                 <h3>
-                    Výber datumu:
+                    Výběr datumu:
                 </h3>
-                <br/>
                 <br/>
                 <LocalizationProvider dateAdapter={AdapterDateFns} locale={cs}>
                     <DateTimePicker
@@ -102,6 +103,15 @@ export default function MatchForm ({ playerList }) {
                         onChange={setStartDateTime}
                         renderInput={(props) => <TextField {...props} />}
                         />
+
+                    <DateTimePicker
+                        label="Konec zápasu"
+                        value={endDateTime}
+                        onChange={setEndDateTime}
+                        variant="contained"
+                        renderInput={(params) => <TextField {...params} />}
+                        className={classes.home}
+                    />
                 </LocalizationProvider>
 
                 {console.log("dateTime")}
@@ -110,7 +120,7 @@ export default function MatchForm ({ playerList }) {
                 <br/>
                 <br/>
 
-                <LocalizationProvider dateAdapter={AdapterDateFns} locale={cs}>
+{/*                <LocalizationProvider dateAdapter={AdapterDateFns} locale={cs}>
                         <DateTimePicker
                             label="Konec zápasu"
                             value={endDateTime}
@@ -120,7 +130,7 @@ export default function MatchForm ({ playerList }) {
                         />
                 </LocalizationProvider>
                 <br/>
-                <br/>
+                <br/>*/}
             </div>
 
             <Button variant="contained" size="large" type="submit" onClick={handleSubmit}>

@@ -1,9 +1,8 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -11,7 +10,6 @@ import { Link } from 'react-router-dom';
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import { useAuth } from '../Context/AuthContext';
 import {makeStyles} from "@material-ui/core/styles";
-import {indigo} from "@material-ui/core/colors";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -62,14 +60,6 @@ export default function MainListItems() {
         <ListItemText primary="Statistika" />
       </ListItem>
         </Link>
-  <Link to="player" className={classes.button}>
-      <ListItem button>
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-        <ListItemText primary="Hráči" />
-      </ListItem>
-  </Link>
       <Link to="/" className={classes.button}>
         <ListItem button >
           <ListItemIcon>

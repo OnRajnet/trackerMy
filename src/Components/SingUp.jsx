@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import {saveUserToDb} from "../Util/api";
-import SnackbarProvider from "../Context/SnackbarContext";
+import { useSnackbar } from '../Context/SnackbarContext';
 
 
 const theme = createTheme();
@@ -21,14 +21,24 @@ export default function SignUp() {
     const [ login, setLogin ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ password1, setPassword1 ] = useState('');
+    const { openSnackbar, hideSnackbar } = useSnackbar();
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (password === password1){
-            saveUserToDb(login, password)
+        hideSnackbar();
+
+        if (password == password1){
+            try {
+                await saveUserToDb(login, password)
+            }
+            catch (error){
+                console.log('error');
+                openSnackbar('error', 'Jméno je již obsazené');
+            }
         }
         else {
+            openSnackbar('error','Zadaná hesla nejsou stejná')
             console.log("Zadaná hesla nejsou stejná")
         }
    }
@@ -85,9 +95,9 @@ export default function SignUp() {
                                     name="password"
                                     label="Nové heslo znovu"
                                     type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    value={password}
+                                    id="password1"
+                                    autoComplete="new-password1"
+                                    value={password1}
                                     onChange={(e) => setPassword1(e.target.value)}
                                 />
                             </Grid>

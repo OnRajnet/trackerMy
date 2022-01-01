@@ -5,78 +5,79 @@ import cs from 'date-fns/locale/cs';
 import {useEffect, useState} from "react";
 
 const columns = [
-    { 
-        field: 'id',
-        headerName: 'ID', 
-        type:"number",
-        width: 110
-    },
     {
         field: 'footballMatchId',
         headerName: 'footballMatchId',
-        width: 150,
-        editable: true,
+        width: 180,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'trainer',
         headerName: 'Trenér',
         width: 150,
-        editable: true,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'startTime',
         headerName: 'Začátek zápasu',
-        width: 300,
-        editable: true,
+        width: 180,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'endTime',
         headerName: 'Konec zápasu',
-        type: 'number',
-        width: 300,
-        editable: true,
+        width: 180,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'totalSteps',
         headerName: 'Celkový počet kroků',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 300,
+        width: 210,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'avgSteps',
         headerName: 'Průbměr kroků',
         type: 'number',
-        width: 300,
-        editable: true,
+        width: 180,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'totalDistance',
         headerName: 'Celková vzdálenost',
         type: 'number',
-        width: 300,
-        editable: true,
+        width: 210,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'avgDistance',
         headerName: 'Průměrná vzdálenost',
         type: 'number',
         width: 300,
-        editable: true,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'avgSpeed',
         headerName: 'Průměrná rychlost',
         type: 'number',
-        width: 300,
-        editable: true,
+        width: 210,
+        headerAlign: 'center',
+        align: 'center'
     },
     {
         field: 'players',
         headerName: 'Hráči',
-        type: 'array',
         width: 300,
-        editable: true,
+        headerAlign: 'center',
+        align: 'center'
     },
 
 ];
@@ -85,35 +86,41 @@ function getFormatDate(params) {
     return format(new Date(params), 'dd.MM.yyyy  kk:mm:ss', {locale: cs});
 }
 
-export default function FotballMatchDataGrid({currentMatchData}) {
+export default function FotballMatchDataGrid({ currentMatchData }) {
+    const [row, setRow] = useState([]);
 
+    useEffect(() => {
+        if (!currentMatchData) {
+            return;
+        }
 
-    const rows = [
-        {
-            id: 1,
-            footballMatchId:currentMatchData.footballMatchId,
-            trainer: currentMatchData.trainer,
-            startTime: getFormatDate(1),
-            endTime: getFormatDate(1),
-            totalSteps: currentMatchData.totalSteps,
-            avgSteps: currentMatchData.avgSteps,
-            totalDistance: currentMatchData.totalDistance,
-            avgDistance: currentMatchData.avgDistance,
-            avgSpeed: currentMatchData.avgSpeed,
-            players: currentMatchData.players
-        },
-    ];
+        const { players, startTime, endTime, ...restData } = currentMatchData;
+        
+        const footballMatch = {
+            ...restData,
+            players: (players || []).map((player) => player.player).join(', '),
+            startTime: getFormatDate(startTime),
+            endTime: getFormatDate(endTime)
+
+        }
+
+        setRow([footballMatch]);
+    }, [currentMatchData])
 
     return (
-        <div style={{ height: 600, width: '100%' }}>
-            <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                checkboxSelection
-                disableSelectionOnClick
-            />
+        <div>
+            { row.length > 0 && 
+                <DataGrid
+                    rows={row}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    disableSelectionOnClick
+                    autoHeight
+                    getRowId={(row) => row.footballMatchId}
+                    style={{marginTop:30}} 
+                />
+            }
         </div>
     );
 }

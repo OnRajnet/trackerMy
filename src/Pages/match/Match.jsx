@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {Button} from "@mui/material";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
-import {useAuth} from "../../Context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
     home: {
@@ -23,7 +22,7 @@ export default function Match() {
     return (
             <div className={classes.home}>
                 <p>
-                    Karta ZÁPAS, <br/>
+                    Karta <strong>ZÁPAS</strong>, <br/>
                     zde je možnost vybrat mezi vytvořením nového zápasu a nebo zobrazení již vytvořeného zápasu.
                 </p>
                     <Link to="/createMatch" variant="body2" className={classes.button}>

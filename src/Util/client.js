@@ -2,7 +2,7 @@ import axios from 'axios';
 import auth from './auth';
 
 const client = axios.create({
-  baseURL: `http://localhost:30600`,
+  baseURL: "http://localhost:30600"
 });
 
 
@@ -12,7 +12,7 @@ export default {
       ...headers,
     }
 
-    const token = await auth.getAccessToken();
+    const token = auth.getAccessToken();
 
     if (token) {
       requestHeaders.authorization = `Bearer ${token}`;

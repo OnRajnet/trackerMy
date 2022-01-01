@@ -15,10 +15,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {loginPLayer} from "../Util/api";
 import auth from '../Util/auth';
 import { useAuth } from '../Context/AuthContext';
+import { useSnackbar } from '../Context/SnackbarContext';
 
 const theme = createTheme();
 
 export default function SignIn() {
+    const { openSnackbar, hideSnackbar } = useSnackbar();
     const [ login, setLogin ] = useState('');
     const [ password, setPassword ] = useState('');
     const { currentAuth, setCurrentAuth } = useAuth();
@@ -33,8 +35,16 @@ export default function SignIn() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        hideSnackbar();
 
-        await loginPLayer(login, password);
+        try {
+           await loginPLayer(login, password);
+
+        } catch (error) {
+            console.log('error');
+            openSnackbar('error', 'Špatně zadané jméno nebo heslo');
+        }
+        
 
         const userLogin = auth.getLogin();
 

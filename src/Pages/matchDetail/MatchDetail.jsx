@@ -3,9 +3,25 @@ import {getFotbalMatchById, getFotbalMatchId} from "../../Util/api";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FotballMatchDataGrid from "../../Components/FotballMatchDataGrid";
+import {Button} from "@mui/material";
+import {makeStyles} from "@material-ui/core/styles";
+
+
+
+const useStyles = makeStyles((theme) => ({
+    home: {
+        flex: 1,
+        padding: 20,
+        textAlign: "center",
+    },
+    button:{
+        margin:20,
+    }
+}));
 
 export default function MatchDetail(){
 
+    const classes = useStyles()
     const [ idList, setIdList ] = useState([]);
     const [ pickedId, setPickedId ] = useState([{id:'' }]);
     const [currentMatchData, setCurrentMatchData] = useState("");
@@ -35,8 +51,8 @@ export default function MatchDetail(){
     }, [pickedId])
 
     return(
-        <div style={{ height: 400, width: '100%' }}>
-            <h2>Vyber zápas</h2>
+        <div className={classes.home}>
+            <h2>Vyber zápas, který chceš vidět</h2>
 
             <div>
                 {
@@ -61,11 +77,9 @@ export default function MatchDetail(){
                         </Select>
                     })
                 }
+                <Button variant={"contained"} onClick={handleShowMatch}>Ukaž zápas {idToString}</Button>
             </div>
-
             <div>
-
-                <button onClick={handleShowMatch}>Ukaž zápas {idToString}</button>
 
                 <FotballMatchDataGrid currentMatchData={currentMatchData}/>
 

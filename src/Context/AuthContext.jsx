@@ -9,6 +9,7 @@ function useAuth() {
 
 function AuthContextProvider({ children }) {
     const [ currentAuth, setCurrentAuth ] = useState('');
+    const [ isTrainer, setIsTrainer ] = useState(false);
 
     const logOutUser = () => {
         setCurrentAuth('');
@@ -22,12 +23,16 @@ function AuthContextProvider({ children }) {
             return;
         }
     
+        if (login === 'trener') {
+            setIsTrainer(true);
+        }
+ 
         setCurrentAuth(login) 
     }
 
     return (
         <AuthContext.Provider
-            value={{ currentAuth, setCurrentAuth, logOutUser, setLogin }}
+            value={{ currentAuth, setCurrentAuth, logOutUser, setLogin, isTrainer }}
         >
             {children}
         </AuthContext.Provider>
