@@ -18,10 +18,17 @@ const theme = createTheme();
 
 
 export default function SignUp() {
+    // inicializace hooku
     const [ login, setLogin ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ password1, setPassword1 ] = useState('');
     const { openSnackbar, hideSnackbar } = useSnackbar();
+
+    const resetInputField = () => {
+        setLogin("")
+        setPassword("")
+        setPassword1("")
+    }
 
 
     const handleSubmit = async (e) => {
@@ -31,6 +38,9 @@ export default function SignUp() {
         if (password == password1){
             try {
                 await saveUserToDb(login, password)
+                openSnackbar('success','Registrace úspěšná')
+                resetInputField()
+
             }
             catch (error){
                 console.log('error');
@@ -72,6 +82,7 @@ export default function SignUp() {
                                     name="login"
                                     autoComplete="login"
                                     value={login}
+                                    //Naplnění hooku hodnotou
                                     onChange={(e) => setLogin(e.target.value)}
                                 />
                             </Grid>
@@ -107,6 +118,9 @@ export default function SignUp() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            style={
+                                {cursor:"pointer"}
+                            }
                         >
                             Registrovat
                         </Button>

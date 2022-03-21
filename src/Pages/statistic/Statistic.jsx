@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {getAllPlayer, getPlayerDataPerformance} from "../../Util/api";
 import { useAuth } from '../../Context/AuthContext';
-import PlayerDataPerformanceByPlayer from "../../Components/Statistics/PlayerDataPerformanceByPlayer";
 import PlayerDataPerformanceByTrener from "../../Components/Statistics/PlayerDataPerformanceByTrener";
+import PlayerDataPerformanceByPlayer from  "../../Components/Statistics/PlayerDataPerformanceGridByTrener";
 import {Button} from "@mui/material";
 
 export default function Statistic() {
@@ -24,7 +24,7 @@ export default function Statistic() {
     }
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (currentAuth && isTrainer) {
             fetchPLayerList();
         }

@@ -1,0 +1,11 @@
+/*style.scss*/
+
+.button{
+  cursor: pointer;
+  background: tomato;
+  border: solid 1px;
+
+  &:hover{
+    background-color: aquamarine;
+  }
+}

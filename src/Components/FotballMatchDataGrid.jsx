@@ -88,6 +88,7 @@ function getFormatDate(params) {
 
 export default function FotballMatchDataGrid({ currentMatchData }) {
     const [row, setRow] = useState([]);
+    const [rowsMatch, setRowsMatch] = useState([]);
 
     useEffect(() => {
         if (!currentMatchData) {
@@ -101,9 +102,7 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
             players: (players || []).map((player) => player.player).join(', '),
             startTime: getFormatDate(startTime),
             endTime: getFormatDate(endTime)
-
         }
-
         setRow([footballMatch]);
     }, [currentMatchData])
 

@@ -11,6 +11,8 @@ import cs from 'date-fns/locale/cs';
 import TextField from '@mui/material/TextField';
 import {makeStyles} from "@material-ui/core/styles";
 import {createFotballMatch} from "../Util/api";
+import {useSnackbar} from "../Context/SnackbarContext";
+
 
 export default function MatchForm ({ playerList }) {
 
@@ -20,6 +22,8 @@ export default function MatchForm ({ playerList }) {
 
     const [startDateTime ,setStartDateTime] = React.useState(new Date());
     const [endDateTime ,setEndDateTime] = React.useState(new Date());
+
+    const { openSnackbar, hideSnackbar } = useSnackbar();
 
     const handleChangeSelect = (index, value) => {
         const values = [...formPlayers]
@@ -45,11 +49,14 @@ export default function MatchForm ({ playerList }) {
     }));
 
     const handleSubmit = async (e) =>{
-        console.log(formPlayers.map(player => player.name), 'test');
-        console.log(startDateTime.getTime())
-        console.log(endDateTime.getTime())
-
-        await createFotballMatch((formPlayers || []).map(player => player.name), startDateTime.getTime(), endDateTime.getTime())
+        hideSnackbar();
+        try {
+            await createFotballMatch((formPlayers || []).map(player => player.name), startDateTime.getTime(), endDateTime.getTime())
+            openSnackbar('success','Zápas úspěšně vytvořen')
+        }catch (error){
+            console.log('error');
+            openSnackbar('error', 'Zápas nelze vytvořit ze zadaných údajů');
+        }
     }
     const classes = useStyles();
 
@@ -113,9 +120,6 @@ export default function MatchForm ({ playerList }) {
                         className={classes.home}
                     />
                 </LocalizationProvider>
-
-                {console.log("dateTime")}
-                {console.log(startDateTime.getTime())}
                 <br/>
                 <br/>
                 <br/>

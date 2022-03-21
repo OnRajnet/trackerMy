@@ -7,9 +7,7 @@ async function saveUserToDb(login, password){
         await axios.post('/api/user', {login: login, plainPass: password},{})
     } catch (error) {
         return error.log(error);
-
     }
-
 }
 
 async function loginPLayer (login, password){
@@ -29,7 +27,7 @@ async function loginPLayer (login, password){
 
 async function getGoogleUserConsentLink() {
     const appLogin = window.localStorage.getItem("Login")
-    const url = `api/player/${appLogin}/consent`
+    const url = `/api/player/${appLogin}/consent`
     const { data } = await axios.get(url)
 
     return data
@@ -40,7 +38,7 @@ function logOutApp(){
 }
 
 async function getAllPlayer(){
-    const url = `api/player`
+    const url = '/api/player'
     const { data } = await axios.get(url)
 
     return data
@@ -48,7 +46,7 @@ async function getAllPlayer(){
 async function getPlayerDataPerformance(login){
 
     try {
-        const url = `api/player/${login}`;
+        const url = `/api/player/${login}`;
         const { data } = await axios.get(url)
         return data
     }catch (error){
@@ -59,36 +57,36 @@ async function getPlayerDataPerformance(login){
 }
 
 async function createFotballMatch(player, startTime, endTime){
-    const url = `api/match`
+    const url = '/api/match/'
     try {
         await axios.post(url,{playersLogins: player, startTime: startTime, endTime: endTime})
 
     }
-    catch (e){
-        console.log(e)
+    catch (error){
+        return error.log(error)
     }
 
 }
 
 async function changePassword(oldPassword, newPassword){
     const appLogin = window.localStorage.getItem("Login")
-    const url = `api/user/${appLogin}`
+    const url = `/api/user/${appLogin}`
     try {
         await axios.put(url,{newPassword: newPassword, oldPassword: oldPassword})
     }
-    catch (e){
-        console.log(e)
-        return e
+    catch (error){
+        console.log(error)
+        return error
     }
 }
 
 async function getFotbalMatchId(){
-    const url = `api/match/`
+    const url = 'api/match/'
     try{
         const {data} = await axios.get(url)
         return data
-    }catch (e){
-        console.log(e);
+    }catch (error){
+        console.log(error);
     }
 }
 
@@ -97,8 +95,8 @@ async function getFotbalMatchById(id){
     try {
         const {data} = await axios.get(url)
         return data
-    }catch (e){
-        console.log(e)
+    }catch (error){
+        console.log(error)
     }
 }
 

@@ -1,3 +1,5 @@
+/*App.css*/
+
 .App {
   text-align: center;
 }
@@ -9,7 +11,7 @@
 .container{
   display: flex ;
   margin-top: 10px;
-  
+
 }
 .link{
   text-decoration: none;
@@ -45,4 +47,5 @@
     transform: rotate(360deg);
   }
 }
+
 
