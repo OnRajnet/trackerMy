@@ -90,6 +90,7 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
     const [row, setRow] = useState([]);
     const [rowsMatch, setRowsMatch] = useState([]);
 
+    // zpracování dat
     useEffect(() => {
         if (!currentMatchData) {
             return;
@@ -106,6 +107,8 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
         setRow([footballMatch]);
     }, [currentMatchData])
 
+
+    // Zobrazení dat
     return (
         <div>
             { row.length > 0 && 
