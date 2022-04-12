@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {DataGrid} from "@mui/x-data-grid";
+import Chart from "../Chart";
 
 
 const columns = [
@@ -57,6 +58,19 @@ const columns = [
     },
 ];
 
+const options = {
+    maintainAspectRatio:false,
+    scales: {
+        yAxes: [
+            {
+                tick:{
+                    beginAtZero: true
+                }
+            }
+        ]
+    }
+};
+
 
 export default function PlayerDataPerformanceGridByTrener({ playerData }) {
     const [rows, setRows] = useState([]);
@@ -72,11 +86,63 @@ export default function PlayerDataPerformanceGridByTrener({ playerData }) {
         });
 
         setRows(items);
+        {console.log(rows)}
     }, [playerData])
+
+    const sumBy = (key, obj) => obj.reduce((a, b) => a + b[key], 0);
+
+    const chartData = {
+        labels:["Celkový počet kroků", "Celková vzdálenost","Průměrná vzdálenost", "Průměrná rychlost (*1000)", "Počet hráčů v zápase"],
+        datasets:[{
+            label: "Výkon",
+            data: [
+                sumBy('steps', rows)
+            ],
+
+
+                //(rows[0]?.reduce((counter, item) => {
+                //counter = +counter + +item.steps
+                //console.log(counter)
+                //console.log(rows)
+                //return [counter]},0)),
+                //(rows[0]?.reduce((counter, item) => {
+                // counter = +counter + +item.distance
+                // console.log(counter)
+                // console.log(rows)
+                // return [counter]},0))
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth:3,
+        }
+        ],
+    };
+
 
     return(
         <div>
             {/* Trener part */}
+
+            {rows.length > 0 &&
+                <div>
+                    <h1>Graf zápasu </h1>
+                    <Chart chartData={chartData} options = {options}/>
+                </div>
+            }
+
             { rows.length > 0 && rows.map((row, index) => {
                     return (
                         <DataGrid
@@ -93,11 +159,10 @@ export default function PlayerDataPerformanceGridByTrener({ playerData }) {
                         marginTop:30,
                         }
                         }
-                    />)
+                    />
+                    )
                 })
             }
-
-
         </div>
     );
 

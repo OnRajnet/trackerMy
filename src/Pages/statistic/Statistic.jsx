@@ -3,10 +3,12 @@ import {getAllPlayer, getPlayerDataPerformance} from "../../Util/api";
 import { useAuth } from '../../Context/AuthContext';
 import PlayerDataPerformanceByTrener from "../../Components/Statistics/PlayerDataPerformanceByTrener";
 import PlayerDataPerformanceByPlayer from  "../../Components/Statistics/PlayerDataPerformanceGridByTrener";
-import {Button} from "@mui/material";
+import {TRENER} from "../../Helper/GlobalVariable";
+
 
 export default function Statistic() {
-    const { currentAuth, isTrainer } = useAuth();
+    const { currentAuth } = useAuth();
+    const isTrainer = currentAuth === TRENER
     const [playerData, setPlayerData] = useState([]);
     const [ playerList, setPlayerList ] = useState([]);
 
@@ -24,16 +26,14 @@ export default function Statistic() {
     }
 
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (currentAuth && isTrainer) {
             fetchPLayerList();
         }
-        
         if (currentAuth && !isTrainer) {
             fetchPlayerData(currentAuth);
         }
-    }, [currentAuth])
-
+    },[currentAuth])
 
     return (
         <div style={{ height: 400, width: '100%' }}>

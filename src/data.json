@@ -1,0 +1,89 @@
+[
+
+  {
+    "id":15,
+    "time": "15:30",
+    "date": "2.4.",
+    "opponent": "Valy",
+    "place": "venku"
+  },
+
+  {
+    "id":16,
+    "time": "15:30",
+    "date": "9.4.",
+    "opponent": "Lány na Důlku",
+    "place": "doma"
+  },
+
+  {
+    "id":17,
+    "time": "15:30",
+    "date": "9.4.",
+    "opponent": "Býšť",
+    "place": "venku"
+  },
+
+  {
+    "id":18,
+    "time": "16:00",
+    "date": "23.4.",
+    "opponent": "Pardubičky B",
+    "place": "venku"
+  },
+
+  {
+    "id":19,
+    "time": "10:30",
+    "date": "1.5.",
+    "opponent": "Torpedo Pardubice",
+    "place": "venku"
+  },
+
+  {
+    "id":20,
+    "time": "17:00",
+    "date": "7.5.",
+    "opponent": "Ostřetín",
+    "place": "doma"
+  },
+  {
+    "id":21,
+    "time": "17:00",
+    "date": "14.5.",
+    "opponent": "Dašice B",
+    "place": "venku"
+  },
+
+  {
+    "id":22,
+    "time": "17:00",
+    "date": "21.5.",
+    "opponent": "Rohovládova Bělá B",
+    "place": "doma"
+  },
+
+  {
+    "id":23,
+    "time": "17:00",
+    "date": "29.5.",
+    "opponent": "Jaroslav",
+    "place": "venku"
+  },
+
+  {
+    "id":24,
+    "time": "17:00",
+    "date": "4.6.",
+    "opponent": "Staré Hradiště",
+    "place": "doma"
+  },
+
+  {
+    "id":25,
+    "time": "17:00",
+    "date": "12.6.",
+    "opponent": "Dražkovice",
+    "place": "venku"
+  }
+]

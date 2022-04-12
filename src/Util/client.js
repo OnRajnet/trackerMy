@@ -2,7 +2,7 @@ import axios from 'axios';
 import auth from './auth';
 
 const client = axios.create({
-  baseURL: ""
+  baseURL: "http://localhost:30600"
 });
 
 

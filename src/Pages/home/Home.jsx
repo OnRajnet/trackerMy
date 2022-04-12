@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { indigo } from '@material-ui/core/colors';
 import {getGoogleUserConsentLink} from "../../Util/api";
 import { useAuth } from '../../Context/AuthContext';
+import ColumnGroupingTable from "../../Components/JsonTable";
 
 const useStyles = makeStyles((theme) => ({
     home: {
@@ -52,7 +53,6 @@ export default function Home() {
           fetchConsentLink();
         }
     }, [])
-
     return (
         <div className={classes.home}>
             <div>
@@ -71,6 +71,10 @@ export default function Home() {
                     Na karté <strong>ZÁPAS</strong> je možné vložit záznam o utkání a nebo zobrazit si nějaký zápas, který již byl sehrát a
                     vidět detailní staticky zápasu. Dále v kartě <strong>STATISTIKY</strong> je možnost rozbrazit si výkon jednotlivého hráče.
                 </p>
+
+                <ColumnGroupingTable/>
+
+
             </div>
             { !isTrainer && <>
                 <p>

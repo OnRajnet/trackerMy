@@ -12,8 +12,7 @@ function getLogin () {
 
     if (!login) {
         return '';
-    } 
-
+    }
     return login;
 }
 
@@ -22,5 +21,6 @@ export default {
     getAccessToken,
     setAccessTokenAndLogin,
 };
+export {getLogin}
   
   

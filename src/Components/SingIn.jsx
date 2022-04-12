@@ -44,7 +44,6 @@ export default function SignIn() {
             console.log('error');
             openSnackbar('error', 'Špatně zadané jméno nebo heslo');
         }
-        
 
         const userLogin = auth.getLogin();
 

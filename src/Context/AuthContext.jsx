@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
-import { logOutApp } from "../Util/api";
+import React, {useState, useContext, useEffect} from "react";
+import {logOutApp} from "../Util/api";
+import {getLogin} from "../Util/auth";
 
 const AuthContext = React.createContext('');
 
@@ -7,9 +8,12 @@ function useAuth() {
     return useContext(AuthContext);
 }
 
+
 function AuthContextProvider({ children }) {
     const [ currentAuth, setCurrentAuth ] = useState('');
     const [ isTrainer, setIsTrainer ] = useState(false);
+    const [login, setBool] = useState(null);
+
 
     const logOutUser = () => {
         setCurrentAuth('');
@@ -17,17 +21,17 @@ function AuthContextProvider({ children }) {
     }
 
     const setLogin = () => {
-        const login = window.localStorage.getItem("Login");
-
+        setBool(getLogin)
+        console.log(login)
         if (!login) {
             return;
         }
-    
+
         if (login === 'trener') {
             setIsTrainer(true);
         }
  
-        setCurrentAuth(login) 
+        setCurrentAuth(login)
     }
 
     return (
@@ -39,15 +43,9 @@ function AuthContextProvider({ children }) {
     );
 }
 
-function getLogin(){
-    const login = window.localStorage.getItem("Login");
-    return login;
-}
-
 export {
     useAuth,
-    AuthContextProvider,
-    getLogin
+    AuthContextProvider
 }
 
 export default AuthContext;

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import {useAuth} from "../../Context/AuthContext";
+import {TRENER} from "../../Helper/GlobalVariable";
 
 const useStyles = makeStyles((theme) => ({
     home: {
@@ -20,11 +21,11 @@ export default function Match() {
 
     const classes = useStyles();
     const { currentAuth } = useAuth();
-    const isTrainer = currentAuth === 'trener'
+    const isTrainer = currentAuth === TRENER
+
 
     return (
             <div className={classes.home}>
-
                 { !isTrainer && <>
                     <p>
                         V současné době tu nejsou dostupná žádná data. Přejdi na jinou sekci.

@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { format } from 'date-fns';
 import cs from 'date-fns/locale/cs';
 import {useEffect, useState} from "react";
+import Chart from "./Chart";
 
 const columns = [
     {
@@ -79,8 +80,20 @@ const columns = [
         headerAlign: 'center',
         align: 'center'
     },
-
 ];
+
+const options = {
+    maintainAspectRatio:false,
+    scales: {
+        yAxes: [
+            {
+                tick:{
+                    beginAtZero: true
+                }
+            }
+        ]
+    }
+};
 
 function getFormatDate(params) {
     return format(new Date(params), 'dd.MM.yyyy  kk:mm:ss', {locale: cs});
@@ -88,7 +101,6 @@ function getFormatDate(params) {
 
 export default function FotballMatchDataGrid({ currentMatchData }) {
     const [row, setRow] = useState([]);
-    const [rowsMatch, setRowsMatch] = useState([]);
 
     // zpracování dat
     useEffect(() => {
@@ -105,13 +117,62 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
             endTime: getFormatDate(endTime)
         }
         setRow([footballMatch]);
+
+
+
     }, [currentMatchData])
+
+    function round(number){
+        console.log(number)
+        return Intl.NumberFormat('cs', { maximumSignificantDigits: 3 }).format(number);
+    }
+
+
+    const chartData = {
+        labels:["Celkový počet kroků", "Průměrný počet kroků", "Celková vzdálenost","Průměrná vzdálenost", "Průměrná rychlost (*1000)", "Počet hráčů v zápase"],
+        datasets:[{
+            label: "Výkon",
+            data: [row[0]?.totalSteps,
+                   row[0]?.avgSteps,
+                   row[0]?.totalDistance,
+                   row[0]?.avgDistance,
+                   row[0]?.avgSpeed*1000,
+                   row.map((player) => player.player).length + 150,
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth:3,
+        }
+        ],
+    };
 
 
     // Zobrazení dat
     return (
         <div>
-            { row.length > 0 && 
+
+            {row.length > 0 &&
+                <div>
+                    <h1>Graf zápasu {currentMatchData.footballMatchId} </h1>
+                    <Chart chartData={chartData} options = {options}/>
+                </div>
+            }
+            <div>
+            { row.length > 0 &&
                 <DataGrid
                     rows={row}
                     columns={columns}
@@ -120,9 +181,11 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
                     disableSelectionOnClick
                     autoHeight
                     getRowId={(row) => row.footballMatchId}
-                    style={{marginTop:30}} 
+                    style={{marginTop:30}}
                 />
             }
+                {console.log(row)}
+        </div>
         </div>
     );
 }

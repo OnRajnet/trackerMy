@@ -1,6 +1,8 @@
 import { Base64 } from 'js-base64';
 import axios from './client';
 import auth from './auth';
+import {REACT_APP_API_KEY, REACT_APP_API_URL} from "../Helper/GlobalVariable";
+
 
 async function saveUserToDb(login, password){
     try {
@@ -99,6 +101,28 @@ async function getFotbalMatchById(id){
         console.log(error)
     }
 }
+async function fetchWeaherData(lat, long){
+    const url = `${REACT_APP_API_URL}/weather/?lat=${lat}&lon=${long}&units=metric&APPID=${REACT_APP_API_KEY}`
+    try {
+        console.log(url)
+        const data = await axios.get(url)
+        return data;
+    }catch (error){
+        console.log(error)
+    }
+}
+
+async function weatherDataFetch(lat, long) {
+    const url = `${REACT_APP_API_URL}/weather/?lat=${lat}&lon=${long}&units=metric&APPID=${REACT_APP_API_KEY}`
+    try {
+        console.log(url)
+        const response = await fetch(url)
+        let actualData = await response.json()
+        return actualData
+    }catch (error){
+        console.log(error)
+    }
+}
 
 export {
     logOutApp,
@@ -110,7 +134,9 @@ export {
     createFotballMatch,
     changePassword,
     getFotbalMatchId,
-    getFotbalMatchById
+    getFotbalMatchById,
+    fetchWeaherData,
+    weatherDataFetch,
 }
 
 
