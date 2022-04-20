@@ -7,5 +7,4 @@ export default {
     statistic: '/statistic',
     createMatch: '/createMatch',
     matchDetail: '/matchDetail',
-    chart: '/chart',
 }

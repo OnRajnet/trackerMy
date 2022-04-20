@@ -78,7 +78,7 @@ export default function Home() {
             </div>
             { !isTrainer && <>
                 <p>
-                    Prosím přilaš se pomocí svého Google účtu a odouhlas s možností poskytování dat
+                    Prosím přihlaš se pomocí svého Google účtu a odouhlas s možností poskytování dat
                     pro zaznamenání a zpracování tvých výsledků.
 
                 </p>

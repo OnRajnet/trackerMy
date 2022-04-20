@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import {DataGrid} from "@mui/x-data-grid";
 import Chart from "../Chart";
 
@@ -35,7 +35,7 @@ const columns = [
     },
     {
         field: 'maxSpeed',
-        headerName: 'Maximální počet kroků',
+        headerName: 'Maximální rychlost',
         width: 220,
         headerAlign: 'center',
         align: 'center',
@@ -58,22 +58,9 @@ const columns = [
     },
 ];
 
-const options = {
-    maintainAspectRatio:false,
-    scales: {
-        yAxes: [
-            {
-                tick:{
-                    beginAtZero: true
-                }
-            }
-        ]
-    }
-};
-
-
-export default function PlayerDataPerformanceGridByTrener({ playerData }) {
+export default function PlayerDataPerformanceGridByPlayer({ playerData }) {
     const [rows, setRows] = useState([]);
+
 
     useEffect(() => {
         let items = [];
@@ -89,27 +76,14 @@ export default function PlayerDataPerformanceGridByTrener({ playerData }) {
         {console.log(rows)}
     }, [playerData])
 
-    const sumBy = (key, obj) => obj.reduce((a, b) => a + b[key], 0);
 
     const chartData = {
-        labels:["Celkový počet kroků", "Celková vzdálenost","Průměrná vzdálenost", "Průměrná rychlost (*1000)", "Počet hráčů v zápase"],
+        labels:["Celkový počet kroků", "Celková vzdálenost"],
         datasets:[{
             label: "Výkon",
-            data: [
-                sumBy('steps', rows)
+            data: [rows[0]?.reduce((total, obj) => obj.steps + total,0),
+                   rows[0]?.reduce((total, obj) => obj.distance + total,0),
             ],
-
-
-                //(rows[0]?.reduce((counter, item) => {
-                //counter = +counter + +item.steps
-                //console.log(counter)
-                //console.log(rows)
-                //return [counter]},0)),
-                //(rows[0]?.reduce((counter, item) => {
-                // counter = +counter + +item.distance
-                // console.log(counter)
-                // console.log(rows)
-                // return [counter]},0))
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -136,30 +110,26 @@ export default function PlayerDataPerformanceGridByTrener({ playerData }) {
         <div>
             {/* Trener part */}
 
-            {rows.length > 0 &&
-                <div>
-                    <h1>Graf zápasu </h1>
-                    <Chart chartData={chartData} options = {options}/>
-                </div>
-            }
-
             { rows.length > 0 && rows.map((row, index) => {
                     return (
-                        <DataGrid
-                        key={`data-grid-${index}`}
-                        rows={row}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        checkboxSelection
-                        disableSelectionOnClick
-                        autoHeight
-                        getRowId={(row) => row.footballMatchId}
-                        style={{
-                        marginTop:30,
-                        }
-                        }
-                    />
+                        <Fragment>
+                            <Chart chartData={chartData}/>
+                            <DataGrid
+                                key={`data-grid-${index}`}
+                                rows={row}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}
+                                checkboxSelection
+                                disableSelectionOnClick
+                                autoHeight
+                                getRowId={(row) => row.footballMatchId}
+                                style={{
+                                    marginTop:30,
+                                }
+                                }
+                            />
+                        </Fragment>
                     )
                 })
             }

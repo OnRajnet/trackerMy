@@ -19,7 +19,6 @@ import { AuthContextProvider } from './Context/AuthContext';
 import { SnackbarContextProvider } from './Context/SnackbarContext';
 import createMatch from "./Pages/createMatch/CreateMatch";
 import matchDetail from "./Pages/matchDetail/MatchDetail";
-import Chart from "./Components/Chart";
 
 
 
@@ -46,7 +45,6 @@ function App() {
                             <ProtectedRoute exact path={RouterPath.statistic} component={Statistic}/>
                             <ProtectedRoute exact path={RouterPath.createMatch} component={createMatch}/>
                             <ProtectedRoute excat path={RouterPath.matchDetail} component={matchDetail}/>
-                            <ProtectedRoute excat path={RouterPath.chart} component={Chart}/>
                         </Switch>
                     </div>
                     <FooterCompoment/>

@@ -122,14 +122,8 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
 
     }, [currentMatchData])
 
-    function round(number){
-        console.log(number)
-        return Intl.NumberFormat('cs', { maximumSignificantDigits: 3 }).format(number);
-    }
-
-
     const chartData = {
-        labels:["Celkový počet kroků", "Průměrný počet kroků", "Celková vzdálenost","Průměrná vzdálenost", "Průměrná rychlost (*1000)", "Počet hráčů v zápase"],
+        labels:["Celkový počet kroků", "Průměrný počet kroků", "Celková vzdálenost","Průměrná vzdálenost", "Průměrná rychlost (*1000)"],
         datasets:[{
             label: "Výkon",
             data: [row[0]?.totalSteps,
@@ -137,7 +131,6 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
                    row[0]?.totalDistance,
                    row[0]?.avgDistance,
                    row[0]?.avgSpeed*1000,
-                   row.map((player) => player.player).length + 150,
             ],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -168,7 +161,7 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
             {row.length > 0 &&
                 <div>
                     <h1>Graf zápasu {currentMatchData.footballMatchId} </h1>
-                    <Chart chartData={chartData} options = {options}/>
+                    <Chart chartData={chartData}/>
                 </div>
             }
             <div>
@@ -184,7 +177,6 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
                     style={{marginTop:30}}
                 />
             }
-                {console.log(row)}
         </div>
         </div>
     );

@@ -2,7 +2,7 @@ import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {getAllPlayer, getPlayerDataPerformance} from "../../Util/api";
 import { useAuth } from '../../Context/AuthContext';
 import PlayerDataPerformanceByTrener from "../../Components/Statistics/PlayerDataPerformanceByTrener";
-import PlayerDataPerformanceByPlayer from  "../../Components/Statistics/PlayerDataPerformanceGridByTrener";
+import PlayerDataPerformanceByPlayer from  "../../Components/Statistics/PlayerDataPerformanceByPlayer";
 import {TRENER} from "../../Helper/GlobalVariable";
 
 

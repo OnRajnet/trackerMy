@@ -1,6 +1,6 @@
 import { Base64 } from 'js-base64';
 import axios from './client';
-import auth from './auth';
+import auth, {getLogin} from './auth';
 import {REACT_APP_API_KEY, REACT_APP_API_URL} from "../Helper/GlobalVariable";
 
 
@@ -28,7 +28,7 @@ async function loginPLayer (login, password){
 }
 
 async function getGoogleUserConsentLink() {
-    const appLogin = window.localStorage.getItem("Login")
+    const appLogin = getLogin()
     const url = `/api/player/${appLogin}/consent`
     const { data } = await axios.get(url)
 
@@ -71,7 +71,7 @@ async function createFotballMatch(player, startTime, endTime){
 }
 
 async function changePassword(oldPassword, newPassword){
-    const appLogin = window.localStorage.getItem("Login")
+    const appLogin = getLogin()
     const url = `/api/user/${appLogin}`
     try {
         await axios.put(url,{newPassword: newPassword, oldPassword: oldPassword})
