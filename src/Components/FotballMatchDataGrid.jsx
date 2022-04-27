@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { format } from 'date-fns';
 import cs from 'date-fns/locale/cs';
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import Chart from "./Chart";
 
 const columns = [
@@ -157,15 +157,10 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
     // Zobrazení dat
     return (
         <div>
-
-            {row.length > 0 &&
-                <div>
-                    <h1>Graf zápasu {currentMatchData.footballMatchId} </h1>
-                    <Chart chartData={chartData}/>
-                </div>
-            }
             <div>
             { row.length > 0 &&
+                <Fragment>
+                    <Chart chartData={chartData}/>
                 <DataGrid
                     rows={row}
                     columns={columns}
@@ -176,6 +171,7 @@ export default function FotballMatchDataGrid({ currentMatchData }) {
                     getRowId={(row) => row.footballMatchId}
                     style={{marginTop:30}}
                 />
+                </Fragment>
             }
         </div>
         </div>

@@ -76,6 +76,7 @@ export default function Home() {
 
 
             </div>
+            <br/>
             { !isTrainer && <>
                 <p>
                     Prosím přihlaš se pomocí svého Google účtu a odouhlas s možností poskytování dat
@@ -95,6 +96,7 @@ export default function Home() {
                 </a>
               </>
             }
+            <br/>
         </div>
     )
 }
